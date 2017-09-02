@@ -17,8 +17,9 @@ New Android 8 supports a new API way to create one.
 // after Android 8.0
 val manager = getSystemService(Context.SHORTCUT_SERVICE) as ShortcutManager
 val info = ShortcutInfo.Builder(this, "shortcut-id")
-    .setShortLabel("label") // must
-    .setIntent(intent) // must
+    .setShortLabel("label")
+    .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher_round))
+    .setIntent(intent)
     .build()
 manager.requestPinShortcut(info, null)
 ```
