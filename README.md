@@ -23,4 +23,4 @@ val info = ShortcutInfo.Builder(this, "shortcut-id")
     .build()
 manager.requestPinShortcut(info, null)
 ```
-
+![](docs/screenshot.png)
