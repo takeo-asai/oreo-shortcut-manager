@@ -30,8 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         val manager = getSystemService(Context.SHORTCUT_SERVICE) as ShortcutManager
         if (manager.isRequestPinShortcutSupported) {
-            val intent = Intent(this, ShortcutActivity::class.java)
-            intent.action = Intent.ACTION_VIEW
+            val intent = Intent(this, ShortcutActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+            }
 
             val info = ShortcutInfo.Builder(this, "shortcut-id")
                     .setShortLabel("label")
@@ -40,5 +41,18 @@ class MainActivity : AppCompatActivity() {
                     .build()
             manager.requestPinShortcut(info, null)
         }
+    }
+
+    fun createShortcutOld(view: View) {
+        val targetIntent = Intent(this, ShortcutActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+        }
+        val icon = Intent.ShortcutIconResource.fromContext(this, R.mipmap.ic_launcher_round)
+        val intent = Intent("com.android.launcher.action.INSTALL_SHORTCUT").apply {
+            putExtra(Intent.EXTRA_SHORTCUT_INTENT, targetIntent)
+            putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon)
+            putExtra(Intent.EXTRA_SHORTCUT_NAME, "label")
+        }
+        sendBroadcast(intent)
     }
 }
